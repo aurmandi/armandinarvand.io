@@ -2,191 +2,64 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ARMAN_DINARVAND</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>arman dinarvand</title>
     <style>
-        :root {
-            --pure-white: #ffffff;
-            --deep-black: #050505;
-            --accent-gray: #444444;
-        }
-
         body {
-            background-color: var(--deep-black);
-            color: var(--pure-white);
-            font-family: 'Bodoni Moda', serif; /* This is your Bodoni MT equivalent */
+            background-color: white;
+            color: black;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            letter-spacing: 0.5px;
+            text-transform: lowercase;
         }
 
-        /* 2007 Digital Overlay Effect */
-        body::before {
-            content: " ";
-            display: block;
-            position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(255, 255, 255, 0.02) 50%);
-            z-index: 9999;
-            background-size: 100% 3px;
-            pointer-events: none;
-        }
-
-        header {
-            border-bottom: 1px solid var(--pure-white);
-            padding: 40px 0;
-            text-align: center;
-            background: linear-gradient(to bottom, #111, #050505);
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 60px 20px;
+        main {
+            text-align: left;
+            max-width: 600px;
+            padding: 20px;
         }
 
         h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin: 0;
-            letter-spacing: 12px;
-            font-style: italic;
-        }
-
-        .subtitle {
-            font-size: 0.9rem;
-            letter-spacing: 4px;
-            color: var(--accent-gray);
-            margin-top: 10px;
-        }
-
-        section {
-            margin-bottom: 80px;
-        }
-
-        h2 {
-            font-size: 1.8rem;
-            border-left: 5px solid var(--pure-white);
-            padding-left: 20px;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            font-style: italic;
-        }
-
-        .content-block {
-            padding-left: 25px;
-            border-left: 1px solid var(--accent-gray);
-        }
-
-        .project-card {
-            margin: 40px 0;
-            padding: 20px;
-            border: 1px solid transparent;
-            transition: all 0.4s ease;
-        }
-
-        .project-card:hover {
-            border: 1px solid var(--pure-white);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .project-card h3 {
             font-size: 1.5rem;
-            margin-top: 0;
+            font-weight: 500;
+            margin-bottom: 1rem;
         }
 
-        .btn-link {
-            color: var(--pure-white);
-            text-decoration: none;
-            border: 1px solid var(--pure-white);
-            padding: 8px 20px;
-            display: inline-block;
-            margin-top: 15px;
-            font-size: 0.8rem;
-            transition: 0.3s;
+        p {
+            line-height: 1.6;
+            margin-bottom: 2rem;
         }
 
-        .btn-link:hover {
-            background: var(--pure-white);
-            color: var(--deep-black);
+        a {
+            color: black;
+            text-decoration: underline;
+            margin-right: 15px;
         }
 
-        .stat-list {
-            list-style: none;
-            padding: 0;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .stat-list li {
-            border-bottom: 1px solid var(--accent-gray);
-            padding: 5px 0;
-            font-size: 1.1rem;
-        }
-
-        footer {
-            border-top: 1px solid var(--accent-gray);
-            text-align: center;
-            padding: 40px;
-            font-size: 0.8rem;
-            color: var(--accent-gray);
-            letter-spacing: 2px;
+        a:hover {
+            opacity: 0.6;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Arman Dinarvand</h1>
-    <div class="subtitle">Computational Neuroscience // ISN_ARCHITECT</div>
-</header>
-
-<div class="container">
-
-    <section>
-        <h2>01 // PROFILE</h2>
-        <div class="content-block">
-            <p>Computational Neuroscientist specializing in the architecture of cortical microcircuits. Investigating the stability of inhibitory systems and the paradoxical dynamics of the mammalian brain.</p>
-            <p>Operating via <i>NEURON</i>, <i>NetPyNE</i>, and <i>Pythonic</i> analytical frameworks.</p>
-        </div>
-    </section>
-
-    <section>
-        <h2>02 // EXPERIMENTS</h2>
+    <main>
+        <h1>arman dinarvand</h1>
+        <p>
+            welcome. i am a [insert your role, e.g., designer / developer / student] 
+            focused on [insert interest]. 
+        </p>
         
-        <div class="project-card">
-            <h3>Cortical Microcircuit (ISN)</h3>
-            <p>A biophysically realistic simulation of Layers 2-6. Utilizing optogenetic perturbation to verify Inhibitory Stabilized Network properties.</p>
-            <a href="https://github.com/aurmandi/CorticalMicrocircuit_ISN" class="btn-link">OPEN_SOURCE_CODE</a>
-        </div>
-
-        <div class="project-card">
-            <h3>Gain Control Unit</h3>
-            <p>Automated firing rate and PSD analysis pipeline for detecting excitatory gain shifts in multi-population models.</p>
-            <a href="#" class="btn-link">VIEW_PROTOCOL</a>
-        </div>
-    </section>
-
-    <section>
-        <h2>03 // SYSTEM_SPECS</h2>
-        <div class="content-block">
-            <ul class="stat-list">
-                <li>Language: Python 3.11</li>
-                <li>Sim: NEURON + NetPyNE</li>
-                <li>Data: NumPy / SciPy</li>
-                <li>Vis: Matplotlib</li>
-            </ul>
-        </div>
-    </section>
-
-</div>
-
-<footer>
-    EST_2026 // CORTICAL_MICRO_SYS // ALL_RIGHTS_RESERVED
-</footer>
+        <nav>
+            <a href="mailto:your-email@example.com">email</a>
+            <a href="https://github.com/yourusername">github</a>
+            <a href="https://linkedin.com/in/yourusername">linkedin</a>
+        </nav>
+    </main>
 
 </body>
 </html>
