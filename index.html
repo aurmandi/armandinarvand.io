@@ -16,53 +16,59 @@
             font-family: 'Wumpus Mono', monospace;
             margin: 0;
             padding: 40px;
-            line-height: 1.5;
+            text-transform: lowercase;
+            line-height: 1.6;
         }
 
-        /* container for the top row */
-        header {
+        /* container for the whole top section */
+        .top-container {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             width: 100%;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
         }
 
-        .name-block {
+        /* keeps name and description stacked on the left */
+        .info-left {
             max-width: 60%;
         }
 
         h1 {
             font-size: 1.2rem;
             font-weight: normal;
-            margin: 0;
+            margin: 0 0 10px 0;
         }
 
-        /* image settings: 1/4 of screen width */
+        .description {
+            margin-bottom: 20px;
+        }
+
+        /* image takes 1/4 of the screen width, full color */
         .profile-image {
             width: 25vw;
             height: auto;
-            filter: grayscale(100%);
             display: block;
         }
 
-        .content {
-            max-width: 600px;
-            margin-bottom: 40px;
-        }
-
         .cv-section {
-            margin-top: 40px;
+            margin-top: 20px;
         }
 
         .cv-item {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .cv-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
         }
 
         a {
             color: black;
             text-decoration: underline;
-            margin-right: 15px;
+            margin-right: 20px;
         }
 
         a:hover {
@@ -71,54 +77,55 @@
             text-decoration: none;
         }
 
-        /* mobile adjustment */
-        @media (max-width: 600px) {
-            header {
+        /* mobile: stacks everything vertically */
+        @media (max-width: 768px) {
+            .top-container {
                 flex-direction: column-reverse;
+            }
+            .info-left {
+                max-width: 100%;
             }
             .profile-image {
                 width: 50vw;
-                margin-bottom: 20px;
+                margin-bottom: 30px;
             }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="name-block">
+    <div class="top-container">
+        <div class="info-left">
             <h1>arman dinarvand</h1>
+            
+            <div class="description">
+                last year bsc. student; interested in a lot of things, 
+                especially computational neuroscience, biology, and dynamical 
+                systems theory. i like to write about music and human beings, 
+                take unprofessional photos, and watch trees.
+            </div>
+
             <nav>
-                <a href="mailto:arman.dinarvand100@gmail.com">email</a>
-                <a href="https://github.com/aurmandi">github</a>
+                <a href="mailto:your-email@address.com">email</a>
+                <a href="https://github.com/yourusername">github</a>
             </nav>
         </div>
 
         <img src="photo2024.jpg" alt="arman dinarvand" class="profile-image">
-    </header>
+    </div>
 
     <main>
-        <div class="content">
-            <p>
-                last year BSc. student; interested in a lot of things,
-                especially compuational neuroscience, biology, and dynamical systems theory.
-
-                I like to write about music and human beings, take unprofessional photos, and watch trees.
-                
-            </p>
-        </div>
-
         <div class="cv-section">
-            <p><strong>cv</strong></p>
+            <span class="cv-title">cv</span>
             
             <div class="cv-item">
                 [2024 — present] <br>
-                [job title] at [location]
+                [role title] — [institution/company]
             </div>
 
             <div class="cv-item">
-                [2022 — 2024] <br>
-                [previous role] at [location]
+                [2021 — 2024] <br>
+                [previous role] — [institution/company]
             </div>
 
             <a href="cv.pdf" target="_blank">download full pdf</a>
