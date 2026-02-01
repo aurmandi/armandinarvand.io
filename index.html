@@ -15,22 +15,40 @@
             color: black;
             font-family: 'Wumpus Mono', monospace;
             margin: 0;
-            padding: 40px; /* spacing from the edge */
+            padding: 40px;
             text-transform: lowercase;
             line-height: 1.5;
         }
 
-        main {
-            max-width: 800px;
+        /* container for the top row */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        .name-block {
+            max-width: 60%;
         }
 
         h1 {
             font-size: 1.2rem;
             font-weight: normal;
-            margin: 0 0 20px 0;
+            margin: 0;
+        }
+
+        /* image settings: 1/4 of screen width */
+        .profile-image {
+            width: 25vw;
+            height: auto;
+            filter: grayscale(100%); /* matches your black/white theme */
+            display: block;
         }
 
         .content {
+            max-width: 600px;
             margin-bottom: 40px;
         }
 
@@ -45,8 +63,7 @@
         a {
             color: black;
             text-decoration: underline;
-            display: inline-block;
-            margin-top: 10px;
+            margin-right: 15px;
         }
 
         a:hover {
@@ -55,29 +72,37 @@
             text-decoration: none;
         }
 
-        nav {
-            margin-top: 20px;
-        }
-
-        nav a {
-            margin-right: 15px;
+        /* mobile adjustment */
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column-reverse;
+            }
+            .profile-image {
+                width: 50vw;
+                margin-bottom: 20px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <main>
-        <h1>arman dinarvand</h1>
+    <header>
+        <div class="name-block">
+            <h1>arman dinarvand</h1>
+            <nav>
+                <a href="mailto:arman.dinarvand100@gmail.com">email</a>
+                <a href="https://github.com/aurmandi">github</a>
+            </nav>
+        </div>
 
+        <img src="profile.jpg" alt="arman dinarvand" class="profile-image">
+    </header>
+
+    <main>
         <div class="content">
             <p>
-                [your description goes here. e.g. digital creator / researcher.]
+                [insert your role / brief intro here]
             </p>
-            
-            <nav>
-                <a href="mailto:your-email@address.com">email</a>
-                <a href="https://github.com/yourusername">github</a>
-            </nav>
         </div>
 
         <div class="cv-section">
@@ -85,12 +110,12 @@
             
             <div class="cv-item">
                 [2024 — present] <br>
-                [job title / role] at [company/location]
+                [job title] at [location]
             </div>
 
             <div class="cv-item">
                 [2022 — 2024] <br>
-                [previous role] at [previous location]
+                [previous role] at [location]
             </div>
 
             <a href="cv.pdf" target="_blank">download full pdf</a>
