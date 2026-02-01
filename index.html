@@ -2,75 +2,185 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arman Dinarvand | Computational Neuroscience</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>TERMINAL://ARMAN_DINARVAND</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #0f172a; color: #f8fafc; }
-        .gradient-text {
-            background: linear-gradient(90deg, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        :root {
+            --neon-green: #00ff41;
+            --dark-bg: #0a0a0a;
+            --glass-green: rgba(0, 255, 65, 0.1);
         }
-        .card { background: #1e293b; border: 1px solid #334155; transition: 0.3s; }
-        .card:hover { border-color: #38bdf8; transform: translateY(-5px); }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--neon-green);
+            font-family: 'Share Tech Mono', monospace;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            text-transform: uppercase;
+        }
+
+        /* 2007 Scanline Effect */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 9999;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        header {
+            border-bottom: 2px solid var(--neon-green);
+            padding: 20px;
+            background: var(--glass-green);
+            text-shadow: 0 0 8px var(--neon-green);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .glitch-title {
+            font-size: 2.5rem;
+            margin: 0;
+            letter-spacing: 5px;
+        }
+
+        .status-bar {
+            font-size: 0.8rem;
+            margin-top: 5px;
+            opacity: 0.7;
+        }
+
+        section {
+            margin-bottom: 50px;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            padding: 20px;
+            position: relative;
+        }
+
+        section h2 {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--dark-bg);
+            padding: 0 10px;
+            font-size: 1.2rem;
+        }
+
+        .project-item {
+            border-left: 3px solid var(--neon-green);
+            padding-left: 15px;
+            margin: 20px 0;
+        }
+
+        .project-item a {
+            color: white;
+            text-decoration: none;
+            background: var(--neon-green);
+            color: black;
+            padding: 2px 5px;
+        }
+
+        .project-item a:hover {
+            background: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-box {
+            border: 1px dashed var(--neon-green);
+            padding: 10px;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            padding: 40px;
+            opacity: 0.5;
+        }
+
+        /* Terminal Cursor Blink */
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: var(--neon-green);
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
     </style>
 </head>
-<body class="font-sans">
+<body>
 
-    <nav class="p-6 flex justify-between items-center max-w-6xl mx-auto">
-        <h1 class="text-xl font-bold tracking-tighter">ARMAN <span class="text-sky-400">DINARVAND</span></h1>
-        <div class="space-x-6 text-sm font-medium">
-            <a href="#about" class="hover:text-sky-400">About</a>
-            <a href="#projects" class="hover:text-sky-400">Projects</a>
-            <a href="https://github.com/aurmandi" target="_blank" class="text-sky-400"><i class="fab fa-github text-lg"></i></a>
+<header>
+    <div class="container" style="padding:0">
+        <h1 class="glitch-title">ARMAN_DINARVAND_SYS <span class="cursor"></span></h1>
+        <div class="status-bar">
+            LOC: CORTEX_LAB // STATUS: SIMULATING_ISN // AUTH: AURMANDI
         </div>
-    </nav>
+    </div>
+</header>
 
-    <section id="about" class="max-w-4xl mx-auto py-20 px-6 text-center">
-        <h2 class="text-5xl md:text-7xl font-extrabold mb-6">Modeling the <span class="gradient-text">Dynamics of Thought.</span></h2>
-        <p class="text-gray-400 text-lg mb-8 leading-relaxed">
-            Computational Neuroscientist specializing in large-scale cortical microcircuits. 
-            Developing biophysically realistic models in <strong>NetPyNE</strong> to investigate 
-            Inhibitory Stabilized Networks (ISN) and gain control dynamics.
-        </p>
-        <div class="flex justify-center gap-4">
-            <span class="px-4 py-2 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 text-xs font-mono">Python</span>
-            <span class="px-4 py-2 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-xs font-mono">NEURON</span>
-            <span class="px-4 py-2 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-mono">NetPyNE</span>
-        </div>
+<div class="container">
+
+    <section>
+        <h2>01_BIOGRAPHY</h2>
+        <p>Computational Neuroscientist // Specialist in Cortical Microcircuits.</p>
+        <p>Focus: Inhibitory Stabilized Networks (ISN) & Biophysical Modeling via NetPyNE.</p>
+        <p>> Initializing research protocols... [OK]</p>
     </section>
 
-    <section id="projects" class="max-w-6xl mx-auto py-20 px-6">
-        <h3 class="text-2xl font-bold mb-10 flex items-center">
-            <span class="w-8 h-px bg-sky-500 mr-4"></span> Selected Research
-        </h3>
+    <section>
+        <h2>02_ACTIVE_PROJECTS</h2>
         
-        <div class="grid md:grid-cols-2 gap-8">
-            <div class="card p-8 rounded-2xl">
-                <h4 class="text-xl font-bold mb-2">Cortical Microcircuit ISN</h4>
-                <p class="text-gray-400 text-sm mb-4">Investigation of paradoxical inhibitory responses in Layer 2-6 circuits using NetPyNE. Analyzed PSD and firing rates under optogenetic perturbation.</p>
-                <div class="flex justify-between items-center">
-                    <span class="text-xs text-sky-400 font-mono">Repository: CorticalMicrocircuit_ISN</span>
-                    <a href="https://github.com/aurmandi/CorticalMicrocircuit_ISN" class="text-gray-300 hover:text-white"><i class="fas fa-external-link-alt"></i></a>
-                </div>
-            </div>
+        <div class="project-item">
+            <h3>[CORTICAL_ISN_MODEL]</h3>
+            <p>Dynamics of Layer 2-6 feedback loops. Paradoxical response detection.</p>
+            <a href="https://github.com/aurmandi/CorticalMicrocircuit_ISN">ACCESS_REPOSITORY</a>
+        </div>
 
-            <div class="card p-8 rounded-2xl">
-                <h4 class="text-xl font-bold mb-2">Gain Control Analysis</h4>
-                <p class="text-gray-400 text-sm mb-4">Developing Python-based pipelines for automated gain increase calculations during PV cell silencing in realistic cortical models.</p>
-                <div class="flex justify-between items-center">
-                    <span class="text-xs text-sky-400 font-mono">Tools: NumPy, Matplotlib, Scipy</span>
-                    <i class="fas fa-microscope text-gray-600"></i>
-                </div>
-            </div>
+        <div class="project-item">
+            <h3>[GAIN_CONTROL_UNIT]</h3>
+            <p>Automated analysis of excitatory gain during PV silencing.</p>
+            <a href="#">VIEW_DOCUMENTATION</a>
         </div>
     </section>
 
-    <footer class="py-10 text-center border-t border-gray-800 text-gray-500 text-xs">
-        <p>&copy; 2026 Arman Dinarvand. Built with Tailwind CSS and Passion for Brain Science.</p>
-    </footer>
+    <section>
+        <h2>03_TECHNICAL_STACK</h2>
+        <div class="stats-grid">
+            <div class="stat-box">PYTHON 3.11</div>
+            <div class="stat-box">NEURON engine</div>
+            <div class="stat-box">NETPYNE lib</div>
+            <div class="stat-box">MATPLOTLIB</div>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    SYSTEM_TIME: 2026.02.01_06:00 // NO_USER_TRACKING_ENABLED // END_OF_LINE
+</footer>
 
 </body>
 </html>
