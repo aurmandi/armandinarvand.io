@@ -4,44 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>arman dinarvand</title>
+    <link href="https://fonts.cdnfonts.com/css/wumpus-mono" rel="stylesheet">
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             background-color: white;
             color: black;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            font-family: 'Wumpus Mono', monospace;
             margin: 0;
+            padding: 40px; /* spacing from the edge */
             text-transform: lowercase;
+            line-height: 1.5;
         }
 
         main {
-            text-align: left;
-            max-width: 600px;
-            padding: 20px;
+            max-width: 800px;
         }
 
         h1 {
-            font-size: 1.5rem;
-            font-weight: 500;
-            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: normal;
+            margin: 0 0 20px 0;
         }
 
-        p {
-            line-height: 1.6;
-            margin-bottom: 2rem;
+        .content {
+            margin-bottom: 40px;
+        }
+
+        .cv-section {
+            margin-top: 40px;
+        }
+
+        .cv-item {
+            margin-bottom: 15px;
         }
 
         a {
             color: black;
             text-decoration: underline;
-            margin-right: 15px;
+            display: inline-block;
+            margin-top: 10px;
         }
 
         a:hover {
-            opacity: 0.6;
+            background-color: black;
+            color: white;
+            text-decoration: none;
+        }
+
+        nav {
+            margin-top: 20px;
+        }
+
+        nav a {
+            margin-right: 15px;
         }
     </style>
 </head>
@@ -49,16 +68,33 @@
 
     <main>
         <h1>arman dinarvand</h1>
-        <p>
-            welcome. i am a [insert your role, e.g., designer / developer / student] 
-            focused on [insert interest]. 
-        </p>
-        
-        <nav>
-            <a href="mailto:your-email@example.com">email</a>
-            <a href="https://github.com/yourusername">github</a>
-            <a href="https://linkedin.com/in/yourusername">linkedin</a>
-        </nav>
+
+        <div class="content">
+            <p>
+                [your description goes here. e.g. digital creator / researcher.]
+            </p>
+            
+            <nav>
+                <a href="mailto:your-email@address.com">email</a>
+                <a href="https://github.com/yourusername">github</a>
+            </nav>
+        </div>
+
+        <div class="cv-section">
+            <p><strong>cv</strong></p>
+            
+            <div class="cv-item">
+                [2024 — present] <br>
+                [job title / role] at [company/location]
+            </div>
+
+            <div class="cv-item">
+                [2022 — 2024] <br>
+                [previous role] at [previous location]
+            </div>
+
+            <a href="cv.pdf" target="_blank">download full pdf</a>
+        </div>
     </main>
 
 </body>
