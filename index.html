@@ -18,6 +18,9 @@
             padding: 40px;
             text-transform: lowercase;
             line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         /* main layout container */
@@ -27,6 +30,7 @@
             align-items: flex-start;
             width: 100%;
             gap: 60px;
+            flex: 1; /* allows footer to push to the bottom */
         }
 
         /* left side content: name, bio, cv, and research */
@@ -87,6 +91,12 @@
             text-decoration: none;
         }
 
+        footer {
+            margin-top: 80px;
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
         @media (max-width: 768px) {
             .top-container {
                 flex-direction: column;
@@ -105,15 +115,16 @@
             <h1>arman dinarvand</h1>
             
             <div class="description">
-                last year bsc. student; interested in a lot of things, 
+                last year BSc. student; interested in a lot of things, 
                 especially computational neuroscience, biology, and dynamical 
-                systems theory. i like to write about music and human beings, 
+                systems theory. I like to write about music and human beings, 
                 take unprofessional photos, and watch trees.
             </div>
 
             <nav>
-                <a href="mailto:your-email@address.com">email</a>
-                <a href="https://github.com/yourusername">github</a>
+                <a href="mailto:arman.dinarvand100@gmail.com">email</a>
+                <a href="https://github.com/aurmandi">github</a>
+                <a href="https://bsky.app/profile/aurmandi.bsky.social">bluesky</a>
             </nav>
 
             <main>
@@ -129,7 +140,6 @@
                         [2021 — 2024] <br>
                         [previous role] — [institution]
                     </div>
-        
                 </div>
 
                 <div class="research-section">
@@ -141,12 +151,8 @@
                         repository. this repo includes some basic, small projects exploring
                         neural dynamics, spectral analysis, and stimulus decoding using various
                         computational methods.
+                        <br>
                         <a href="https://github.com/aurmandi/Computational-Neuroscience-Projects">view project</a>
-                    </div>
-
-                    <div class="item">
-                        brief explanation about your second repository. link it if you'd like: 
-                        <a href="https://github.com/yourusername/repo">view project</a>
                     </div>
                 </div>
             </main>
@@ -160,6 +166,10 @@
             </div>
         </div>
     </div>
+
+    <footer>
+        last updated: february 2026
+    </footer>
 
 </body>
 </html>
