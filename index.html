@@ -29,7 +29,7 @@
             gap: 60px;
         }
 
-        /* left side content: name, bio, and cv */
+        /* left side content: name, bio, cv, and research */
         .info-left {
             max-width: 60%;
         }
@@ -58,25 +58,21 @@
             margin-bottom: 15px;
         }
 
-        /* text box under the image, border removed */
         .image-text-area {
             font-size: 0.9rem;
             padding: 0;
             text-align: left;
         }
 
-        .cv-section {
+        .section-header {
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: block;
             margin-top: 50px;
         }
 
-        .cv-item {
+        .item {
             margin-bottom: 20px;
-        }
-
-        .cv-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: block;
         }
 
         a {
@@ -91,7 +87,6 @@
             text-decoration: none;
         }
 
-        /* mobile view: everything stacks vertically */
         @media (max-width: 768px) {
             .top-container {
                 flex-direction: column;
@@ -123,19 +118,36 @@
 
             <main>
                 <div class="cv-section">
-                    <span class="cv-title">cv</span>
+                    <span class="section-header">cv</span>
                     
-                    <div class="cv-item">
+                    <div class="item">
                         [2024 — present] <br>
                         [role/title] — [institution]
                     </div>
         
-                    <div class="cv-item">
+                    <div class="item">
                         [2021 — 2024] <br>
                         [previous role] — [institution]
                     </div>
         
-                    <a href="cv.pdf" target="_blank">download full pdf</a>
+                </div>
+
+                <div class="research-section">
+                    <span class="section-header">research projects</span>
+                    
+                    <div class="item">
+                        some of my previous [small] projects were deleted
+                        and re-uploaded in a single 'computational-neuroscience-projects'
+                        repository. this repo includes some basic, small projects exploring
+                        neural dynamics, spectral analysis, and stimulus decoding using various
+                        computational methods.
+                        <a href="https://github.com/aurmandi/Computational-Neuroscience-Projects">view project</a>
+                    </div>
+
+                    <div class="item">
+                        brief explanation about your second repository. link it if you'd like: 
+                        <a href="https://github.com/yourusername/repo">view project</a>
+                    </div>
                 </div>
             </main>
         </div>
