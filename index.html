@@ -20,18 +20,25 @@
             line-height: 1.6;
         }
 
-        /* container for the whole top section */
+        /* main layout container */
         .top-container {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             width: 100%;
-            margin-bottom: 60px;
+            gap: 60px;
         }
 
-        /* keeps name and description stacked on the left */
+        /* left side content: name, bio, and cv */
         .info-left {
             max-width: 60%;
+        }
+
+        /* right side content: image and the caption text */
+        .sidebar-right {
+            width: 25vw;
+            display: flex;
+            flex-direction: column;
         }
 
         h1 {
@@ -41,18 +48,25 @@
         }
 
         .description {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        /* image takes 1/4 of the screen width, full color */
         .profile-image {
-            width: 25vw;
+            width: 100%;
             height: auto;
             display: block;
+            margin-bottom: 15px;
+        }
+
+        /* text box under the image, border removed */
+        .image-text-area {
+            font-size: 0.9rem;
+            padding: 0;
+            text-align: left;
         }
 
         .cv-section {
-            margin-top: 20px;
+            margin-top: 50px;
         }
 
         .cv-item {
@@ -77,17 +91,14 @@
             text-decoration: none;
         }
 
-        /* mobile: stacks everything vertically */
+        /* mobile view: everything stacks vertically */
         @media (max-width: 768px) {
             .top-container {
-                flex-direction: column-reverse;
+                flex-direction: column;
             }
-            .info-left {
+            .info-left, .sidebar-right {
                 max-width: 100%;
-            }
-            .profile-image {
-                width: 50vw;
-                margin-bottom: 30px;
+                width: 100%;
             }
         }
     </style>
@@ -109,28 +120,34 @@
                 <a href="mailto:your-email@address.com">email</a>
                 <a href="https://github.com/yourusername">github</a>
             </nav>
+
+            <main>
+                <div class="cv-section">
+                    <span class="cv-title">cv</span>
+                    
+                    <div class="cv-item">
+                        [2024 — present] <br>
+                        [role/title] — [institution]
+                    </div>
+        
+                    <div class="cv-item">
+                        [2021 — 2024] <br>
+                        [previous role] — [institution]
+                    </div>
+        
+                    <a href="cv.pdf" target="_blank">download full pdf</a>
+                </div>
+            </main>
         </div>
 
-        <img src="photo2024.jpg" alt="arman dinarvand" class="profile-image">
-    </div>
-
-    <main>
-        <div class="cv-section">
-            <span class="cv-title">cv</span>
+        <div class="sidebar-right">
+            <img src="profile.jpg" alt="arman dinarvand" class="profile-image">
             
-            <div class="cv-item">
-                [2024 — present] <br>
-                [role title] — [institution/company]
+            <div class="image-text-area">
+                that's me. photo is taken in 2024 by parya
             </div>
-
-            <div class="cv-item">
-                [2021 — 2024] <br>
-                [previous role] — [institution/company]
-            </div>
-
-            <a href="cv.pdf" target="_blank">download full pdf</a>
         </div>
-    </main>
+    </div>
 
 </body>
 </html>
