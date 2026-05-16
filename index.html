@@ -304,7 +304,7 @@
             .force("center", d3.forceCenter(width / 2, height / 2))
             .force("collide", d3.forceCollide().radius(d => {
                 // approximate text width: radius + characters * multiplier + safety padding
-                return d.radius + (d.id.length * 4.5) + 12;
+                return d.radius + (d.id.length * 2.3) + 12;
             }));
 
         // lines connecting the dots
@@ -339,7 +339,7 @@
 
         // run coordinates updates and apply custom edge repulsion forces
         simulation.on("tick", () => {
-            const padding = 25;     // slightly increased padding to protect long labels at borders
+            const padding = 45;     // slightly increased padding to protect long labels at borders
             const strength = 0.15;
 
             nodes.forEach(d => {
