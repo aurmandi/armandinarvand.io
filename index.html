@@ -32,7 +32,7 @@
             align-items: flex-start;
             width: 100%;
             gap: 60px;
-            flex: 1; /* allows footer to push to the bottom */
+            flex: 1;
         }
 
         /* left side content: name, bio, cv, and research */
@@ -230,24 +230,23 @@
         const nodes = [
             { id: "comp neuro", radius: 7 },
             { id: "dynamical systems", radius: 5 },
-            { id: "machine learning", radius: 5 },
-            { id: "spectral analysis", radius: 4 },
+            { id: "deep learning", radius: 5 },
+            { id: "complex systems", radius: 4 },
             { id: "biology", radius: 6 },
-            { id: "writing & music", radius: 5 },
+            { id:  "history", radius: 5 },
             { id: "photography", radius: 4 },
-            { id: "trees & nature", radius: 5 }
+            { id: "watching trees", radius: 5 }
         ];
 
         // map connections between concepts
         const links = [
             { source: "comp neuro", target: "dynamical systems" },
-            { source: "comp neuro", target: "machine learning" },
+            { source: "comp neuro", target: "deep learning" },
             { source: "comp neuro", target: "spectral analysis" },
             { source: "biology", target: "comp neuro" },
-            { source: "trees & nature", target: "photography" },
-            { source: "trees & nature", target: "biology" },
-            { source: "writing & music", target: "trees & nature" },
-            { source: "machine learning", target: "spectral analysis" }
+            { source: "watching trees", target: "photography" },
+            { source: "watching trees", target: "biology" },
+            { source: "dynamical systems", target: "complex systems" }
         ];
 
         const svg = d3.select("#network-graph")
