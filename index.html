@@ -306,13 +306,13 @@
             .force("link", d3.forceLink(links).id(d => d.id).distance(65))
             .force("charge", d3.forceManyBody().strength(-120))
             
-            // The Barrier Force: magnets pull academic left (30%) and music right (75%)
-            .force("x", d3.forceX(d => d.group === "academic" ? width * 0.30 : width * 0.75).strength(0.4))
+            // The Barrier Force: magnets pull academic left (45%) and music right (65%)
+            .force("x", d3.forceX(d => d.group === "academic" ? width * 0.45 : width * 0.65).strength(0.2))
             .force("y", d3.forceY(height / 2).strength(0.25))
             
             // Dynamic collision bubble using string dimensions to prevent text overlaps
             .force("collide", d3.forceCollide().radius(d => {
-                return d.radius + (d.id.length * 4.5) + 12;
+                return d.radius + (d.id.length * 1.5) + 10;
             }));
 
         // Lower target stops engine jitter, allowing our clean custom sway function to take over
