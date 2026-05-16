@@ -25,7 +25,6 @@
             min-height: 100vh;
         }
 
-        /* main layout container */
         .top-container {
             display: flex;
             justify-content: space-between;
@@ -35,12 +34,10 @@
             flex: 1;
         }
 
-        /* left side content: name, bio, cv, and research */
         .info-left {
             max-width: 60%;
         }
 
-        /* right side content: image and the caption text */
         .sidebar-right {
             width: 17vw;
             display: flex;
@@ -57,7 +54,6 @@
             margin-bottom: 25px;
         }
 
-        /* interactive graph container */
         #network-graph {
             width: 100%;
             height: 300px;
@@ -68,7 +64,6 @@
             background-color: transparent;
         }
 
-        /* d3 graph styling */
         .node circle {
             fill: #fff;
             transition: fill 0.2s ease;
@@ -76,7 +71,7 @@
         }
         
         .node:hover circle {
-            fill: #ffff00; /* matching your highlight-date color */
+            fill: #ffff00;
         }
 
         .node text {
@@ -113,6 +108,23 @@
 
         .item {
             margin-bottom: 20px;
+        }
+
+       
+        .project-figures {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            max-width: 100%;
+        }
+
+        .project-figures img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #2a2a2a;
+            border-radius: 2px;
         }
         
         .highlight-date {
@@ -161,7 +173,6 @@
                 take unprofessional photos, and watch trees.
             </div>
 
-            <!-- the interactive graph lives here -->
             <div id="network-graph"></div>
 
             <nav>
@@ -191,16 +202,26 @@
                         inhibition in maintaining stability. <span class="highlight-date">2025</span>
                         <br>
                         <a href="https://github.com/aurmandi/CorticalMicrocircuit_ISN">view project</a>
+                        
+                        <div class="project-figures">
+                            <img src="gain_control_analysis.png" alt="disinhibition effect and population dynamics">
+                            <img src="ISN_experiment_results_raster.png" alt="isn experiment spike raster plot">
+                        </div>
                     </div>
 
                     <div class="item">
                         some of my previous projects were deleted
                         and re-uploaded in a single 'computational-neuroscience-projects'
                         repository. this repo includes three basic, small projects exploring
-                        neural dynamics, spectral analysis, and visual/behavior coding (Allen Institute, visual behavior optical physiology dataset) using various
+                        neural dynamics, spectral analysis, and visual/behavior coding (allen institute, visual behavior optical physiology dataset) using various
                         computational methods. <span class="highlight-date">2024 - 2025</span>
                         <br>
                         <a href="https://github.com/aurmandi/Computational-Neuroscience-Projects">view project</a>
+                        
+                        <div class="project-figures">
+                            <img src="Population_Tuning_Vector.png" alt="population tuning vectors and functional interaction matrix">
+                            <img src="Novelty_Supresses_Behavior.png" alt="locomotion and pupil arousal responses to novelty">
+                        </div>
                     </div>
                 </div>
             </main>
@@ -219,14 +240,12 @@
         last updated: february 2026
     </footer>
 
-    <!-- d3.js graph logic -->
     <script>
-        // map container dimensions
         const container = document.getElementById('network-graph');
         const width = container.clientWidth;
         const height = container.clientHeight;
 
-        // define interests
+        // what i spend time thinking about
         const nodes = [
             { id: "comp neuro", radius: 7 },
             { id: "dynamical systems", radius: 5 },
@@ -247,7 +266,7 @@
             { id: "blues", radius: 6 }
         ];
 
-        // map connections between concepts
+        // structural relationships between thoughts
         const links = [
             { source: "comp neuro", target: "dynamical systems" },
             { source: "comp neuro", target: "deep learning" },
@@ -272,14 +291,14 @@
             .attr("width", width)
             .attr("height", height);
 
-        // create physics engine
+        // setting up forces to keep elements balanced
         const simulation = d3.forceSimulation(nodes)
             .force("link", d3.forceLink(links).id(d => d.id).distance(70))
             .force("charge", d3.forceManyBody().strength(-120))
             .force("center", d3.forceCenter(width / 2, height / 2))
             .force("collide", d3.forceCollide().radius(d => d.radius + 20));
 
-        // render links (lines)
+        // lines connecting the dots
         const link = svg.append("g")
             .attr("class", "links")
             .selectAll("line")
@@ -287,7 +306,7 @@
             .enter().append("line")
             .attr("class", "link");
 
-        // render nodes (groups of circles and text)
+        // interactive circles & labels
         const node = svg.append("g")
             .attr("class", "nodes")
             .selectAll("g")
@@ -307,7 +326,7 @@
             .attr("dy", ".35em")
             .text(d => d.id);
 
-        // update positions on each tick
+        // run coordinates changes smoothly on loop
         simulation.on("tick", () => {
             link
                 .attr("x1", d => d.source.x)
@@ -319,7 +338,7 @@
                 .attr("transform", d => `translate(${Math.max(10, Math.min(width - 10, d.x))},${Math.max(10, Math.min(height - 10, d.y))})`);
         });
 
-        // drag functions
+        // dragging behaviors
         function dragstarted(event, d) {
             if (!event.active) simulation.alphaTarget(0.3).restart();
             d.fx = d.x;
@@ -337,7 +356,7 @@
             d.fy = null;
         }
 
-        // handle window resize
+        // recalculating bounds when browser size alters
         window.addEventListener('resize', () => {
             const newWidth = container.clientWidth;
             svg.attr("width", newWidth);
