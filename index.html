@@ -250,6 +250,10 @@
         const container = document.getElementById('network-graph');
         let width = container.clientWidth || container.getBoundingClientRect().width || 800;
         let height = container.clientHeight || 300;
+        if (height < 50) {
+            height = 300;
+            container.style.height = "300px";
+        }
 
         // what i spend time thinking about
         const nodes = [
