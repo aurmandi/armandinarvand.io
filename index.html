@@ -236,18 +236,24 @@
             { id: "data analysis", radius: 6 },
             { id:  "history", radius: 5 },
             { id: "photography", radius: 4 },
-            { id: "watching trees", radius: 5 }
+            { id: "watching trees", radius: 5 },
+            { id: "epistomology", radius: 6 }
+            { id: "neurotech", radius: 4 }
         ];
 
         // map connections between concepts
         const links = [
             { source: "comp neuro", target: "dynamical systems" },
             { source: "comp neuro", target: "deep learning" },
+            { source: "comp neuro", target: "neurotech" }
             { source: "comp neuro", target: "data analysis" },
             { source: "biology", target: "comp neuro" },
             { source: "watching trees", target: "photography" },
             { source: "watching trees", target: "biology" },
-            { source: "dynamical systems", target: "complex systems" }
+            { source: "dynamical systems", target: "complex systems" },
+            { source: "epistomology", target: "history" },
+            { source: "history", target: "biology" },
+            { source: "complex systems", target: "biology" } 
         ];
 
         const svg = d3.select("#network-graph")
