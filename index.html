@@ -312,7 +312,7 @@
             
             // Dynamic collision bubble using string dimensions to prevent text overlaps
             .force("collide", d3.forceCollide().radius(d => {
-                return d.radius + (d.id.length * 1.8) + 12;
+                return d.radius + (d.id.length * 3) + 12;
             }));
 
         // Lower target stops engine jitter, allowing our clean custom sway function to take over
