@@ -297,12 +297,15 @@
             .attr("width", width)
             .attr("height", height);
 
-        // setting up forces to keep elements balanced
+        // forces setup - collision radius now dynamically accounts for node text length
         const simulation = d3.forceSimulation(nodes)
-            .force("link", d3.forceLink(links).id(d => d.id).distance(70))
-            .force("charge", d3.forceManyBody().strength(-120))
+            .force("link", d3.forceLink(links).id(d => d.id).distance(90)) // slightly increased link distance for breathing room
+            .force("charge", d3.forceManyBody().strength(-180)) // stronger repulsion to scatter nodes
             .force("center", d3.forceCenter(width / 2, height / 2))
-            .force("collide", d3.forceCollide().radius(d => d.radius + 20));
+            .force("collide", d3.forceCollide().radius(d => {
+                // approximate text width: radius + characters * multiplier + safety padding
+                return d.radius + (d.id.length * 4.5) + 12;
+            }));
 
         // lines connecting the dots
         const link = svg.append("g")
@@ -327,21 +330,24 @@
         node.append("circle")
             .attr("r", d => d.radius);
 
+        // tweaked text anchoring to keep text predictable relative to the node circle
         node.append("text")
-            .attr("dx", 12)
+            .attr("dx", d => d.radius + 5)
             .attr("dy", ".35em")
+            .attr("text-anchor", "start")
             .text(d => d.id);
 
         // run coordinates updates and apply custom edge repulsion forces
         simulation.on("tick", () => {
-            const padding = 40;     // distance threshold from border where push begins
-            const strength = 0.12;  // intensity of the border pushback
+            const padding = 45;     // slightly increased padding to protect long labels at borders
+            const strength = 0.15;
 
             nodes.forEach(d => {
                 // push right if hitting left wall
                 if (d.x < padding) d.vx += (padding - d.x) * strength;
-                // push left if hitting right wall
-                if (d.x > width - padding) d.vx -= (d.x - (width - padding)) * strength;
+                // push left if hitting right wall (accounts for extra label text width)
+                const textWidthOffset = d.id.length * 6;
+                if (d.x > width - padding - textWidthOffset) d.vx -= (d.x - (width - padding - textWidthOffset)) * strength;
                 // push down if hitting top wall
                 if (d.y < padding) d.vy += (padding - d.y) * strength;
                 // push up if hitting bottom wall
