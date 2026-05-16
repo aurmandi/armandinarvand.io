@@ -376,8 +376,8 @@
 
             nodes.forEach((d, i) => {
                 // Organic ambient drift
-                d.vx += Math.sin(time + i) * 0.04;
-                d.vy += Math.cos(time + i) * 0.04;
+                d.vx += Math.sin(time + i) * 0.02;
+                d.vy += Math.cos(time + i) * 0.02;
 
                 // Fixed Wall Buffer Constraints:
                 if (d.x < paddingLeft) {
