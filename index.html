@@ -348,8 +348,8 @@
             nodes.forEach((d, i) => {
                 // 1. apply a tiny, unique orbital drift to each node so they swim slowly
                 // using the node index (i) keeps them shifting out of phase with one another
-                d.vx += Math.sin(time + i) * 0.04;
-                d.vy += Math.cos(time + i) * 0.04;
+                d.vx += Math.sin(time + i) * 0.02;
+                d.vy += Math.cos(time + i) * 0.02;
 
                 // 2. wall repulsion math
                 if (d.x < padding) d.vx += (padding - d.x) * strength;
