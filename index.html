@@ -110,7 +110,7 @@
             margin-bottom: 20px;
         }
 
-       
+        /* project figures aligned side-by-side */
         .project-figures {
             display: flex;
             flex-direction: row;
@@ -123,7 +123,7 @@
 
         .project-figures img {
             width: 100%;
-            max-width: 400px;
+            max-width: 280px;   /* scales down cleanly to sit horizontally */
             height: auto;
             border: 1px solid #2a2a2a;
             border-radius: 2px;
@@ -244,8 +244,8 @@
 
     <script>
         const container = document.getElementById('network-graph');
-        const width = container.clientWidth;
-        const height = container.clientHeight;
+        let width = container.clientWidth;
+        let height = container.clientHeight;
 
         // what i spend time thinking about
         const nodes = [
@@ -328,8 +328,22 @@
             .attr("dy", ".35em")
             .text(d => d.id);
 
-        // run coordinates changes smoothly on loop
+        // run coordinates updates and apply custom edge repulsion forces
         simulation.on("tick", () => {
+            const padding = 40;     // distance threshold from border where push begins
+            const strength = 0.12;  // intensity of the border pushback
+
+            nodes.forEach(d => {
+                // push right if hitting left wall
+                if (d.x < padding) d.vx += (padding - d.x) * strength;
+                // push left if hitting right wall
+                if (d.x > width - padding) d.vx -= (d.x - (width - padding)) * strength;
+                // push down if hitting top wall
+                if (d.y < padding) d.vy += (padding - d.y) * strength;
+                // push up if hitting bottom wall
+                if (d.y > height - padding) d.vy -= (d.y - (height - padding)) * strength;
+            });
+
             link
                 .attr("x1", d => d.source.x)
                 .attr("y1", d => d.source.y)
@@ -337,7 +351,7 @@
                 .attr("y2", d => d.target.y);
 
             node
-                .attr("transform", d => `translate(${Math.max(10, Math.min(width - 10, d.x))},${Math.max(10, Math.min(height - 10, d.y))})`);
+                .attr("transform", d => `translate(${d.x},${d.y})`);
         });
 
         // dragging behaviors
@@ -360,9 +374,9 @@
 
         // recalculating bounds when browser size alters
         window.addEventListener('resize', () => {
-            const newWidth = container.clientWidth;
-            svg.attr("width", newWidth);
-            simulation.force("center", d3.forceCenter(newWidth / 2, height / 2));
+            width = container.clientWidth;
+            svg.attr("width", width);
+            simulation.force("center", d3.forceCenter(width / 2, height / 2));
             simulation.alpha(0.3).restart();
         });
     </script>
