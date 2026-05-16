@@ -401,7 +401,7 @@
         window.addEventListener('resize', () => {
             width = container.clientWidth;
             svg.attr("width", width);
-            simulation.force("x", d3.forceX(d => d.group === "academic" ? width * 0.30 : width * 0.75).strength(0.4));
+            simulation.force("x", d3.forceX(d => d.group === "academic" ? width * 0.45 : width * 0.65).strength(0.2));
             simulation.force("y", d3.forceY(height / 2).strength(0.25));
             simulation.alpha(0.3).restart();
         });
