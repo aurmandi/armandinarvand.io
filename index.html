@@ -238,7 +238,13 @@
             { id: "photography", radius: 4 },
             { id: "watching trees", radius: 5 },
             { id: "epistomology", radius: 6 },
-            { id: "neurotech", radius: 4 }
+            { id: "neurotech", radius: 4 },
+
+            { id: "post-rock", radius: 6 },
+            { id: "electro-ambient", radius: 6 },
+            { id: "eastern folk", radius: 6 },
+            { id: "jazz", radius: 6 },
+            { id: "blues", radius: 6 }
         ];
 
         // map connections between concepts
@@ -253,7 +259,11 @@
             { source: "dynamical systems", target: "complex systems" },
             { source: "epistomology", target: "history" },
             { source: "history", target: "biology" },
-            { source: "complex systems", target: "biology" } 
+            { source: "complex systems", target: "biology" },
+
+            { source: "jazz", target: "blues" },
+            { source: "blues", target: "post-rock" },
+            { source: "post-rock", target: "electro-ambient" }
         ];
 
         const svg = d3.select("#network-graph")
