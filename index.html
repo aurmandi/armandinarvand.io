@@ -253,23 +253,23 @@
 
         // what i spend time thinking about
         const nodes = [
-            { id: "comp neuro", radius: 7 },
-            { id: "dynamical systems", radius: 5 },
-            { id: "deep learning", radius: 5 },
-            { id: "complex systems", radius: 4 },
-            { id: "biology", radius: 6 },
-            { id: "data analysis", radius: 6 },
-            { id: "history", radius: 5 },
-            { id: "photography", radius: 4 },
-            { id: "watching trees", radius: 5 },
-            { id: "epistomology", radius: 6 },
-            { id: "neurotech", radius: 4 },
+            { id: "comp neuro", radius: 7, group: "academic" },
+            { id: "dynamical systems", radius: 5, group: "academic" },
+            { id: "deep learning", radius: 5, group: "academic" },
+            { id: "complex systems", radius: 4, group: "academic" },
+            { id: "biology", radius: 6, group: "academic" },
+            { id: "data analysis", radius: 6, group: "academic" },
+            { id: "history", radius: 5, group: "academic" },
+            { id: "photography", radius: 4, group: "academic" },
+            { id: "watching trees", radius: 5, group: "academic" },
+            { id: "epistomology", radius: 6, group: "academic" },
+            { id: "neurotech", radius: 4, group: "academic" },
 
-            { id: "post-rock", radius: 6 },
-            { id: "electro-ambient", radius: 6 },
-            { id: "eastern folk", radius: 6 },
-            { id: "jazz", radius: 6 },
-            { id: "blues", radius: 6 }
+            { id: "post-rock", radius: 6, group: "music" },
+            { id: "electro-ambient", radius: 6, group: "music" },
+            { id: "eastern folk", radius: 6, group: "music" },
+            { id: "jazz", radius: 6, group: "music" },
+            { id: "blues", radius: 6, group: "music" }
         ];
 
         // structural relationships between thoughts
@@ -297,16 +297,21 @@
             .attr("width", width)
             .attr("height", height);
 
-        // forces setup
+        // physics setup separating categories onto different screen halves
         const simulation = d3.forceSimulation(nodes)
-            .force("link", d3.forceLink(links).id(d => d.id).distance(90))
-            .force("charge", d3.forceManyBody().strength(-180))
-            .force("center", d3.forceCenter(width / 2, height / 2))
+            .force("link", d3.forceLink(links).id(d => d.id).distance(65))
+            .force("charge", d3.forceManyBody().strength(-140))
+            
+            // split nodes horizontally: academic on the left, music on the right
+            .force("x", d3.forceX(d => d.group === "academic" ? width * 0.35 : width * 0.75).strength(0.4))
+            // align them near the vertical center
+            .force("y", d3.forceY(height / 2).strength(0.3))
+            
             .force("collide", d3.forceCollide().radius(d => {
                 return d.radius + (d.id.length * 4.5) + 12;
             }));
 
-        // CRUCIAL: this keeps the simulation from falling asleep/freezing
+        // keeps the ambient motion perpetually alive
         simulation.alphaTarget(0.05).alphaDecay(0);
 
         const link = svg.append("g")
@@ -336,22 +341,20 @@
             .attr("text-anchor", "start")
             .text(d => d.id);
 
-        // tracking time to create smooth wave-like perturbations
         let time = 0;
 
         simulation.on("tick", () => {
-            time += 0.005; // controls the speed of the ambient oscillation cycle
+            time += 0.005; // speed of the gentle sway
             
             const padding = 45;     
             const strength = 0.15;
 
             nodes.forEach((d, i) => {
-                // 1. apply a tiny, unique orbital drift to each node so they swim slowly
-                // using the node index (i) keeps them shifting out of phase with one another
-                d.vx += Math.sin(time + i) * 0.02;
-                d.vy += Math.cos(time + i) * 0.02;
+                // slow ambient drift
+                d.vx += Math.sin(time + i) * 0.04;
+                d.vy += Math.cos(time + i) * 0.04;
 
-                // 2. wall repulsion math
+                // border boundaries
                 if (d.x < padding) d.vx += (padding - d.x) * strength;
                 
                 const textWidthOffset = d.id.length * 6;
@@ -373,7 +376,6 @@
                 .attr("transform", d => `translate(${d.x},${d.y})`);
         });
 
-        // dragging behaviors updated to cleanly hand back control to the ambient drift
         function dragstarted(event, d) {
             if (!event.active) simulation.alphaTarget(0.2).restart();
             d.fx = d.x;
@@ -386,7 +388,6 @@
         }
 
         function dragended(event, d) {
-            // drops back down to the low target threshold instead of 0
             if (!event.active) simulation.alphaTarget(0.05);
             d.fx = null;
             d.fy = null;
@@ -395,7 +396,9 @@
         window.addEventListener('resize', () => {
             width = container.clientWidth;
             svg.attr("width", width);
-            simulation.force("center", d3.forceCenter(width / 2, height / 2));
+            // update target focal points relative to the new window scale
+            simulation.force("x", d3.forceX(d => d.group === "academic" ? width * 0.35 : width * 0.75).strength(0.4));
+            simulation.force("y", d3.forceY(height / 2).strength(0.3));
             simulation.alpha(0.3).restart();
         });
     </script>
