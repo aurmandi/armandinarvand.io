@@ -351,8 +351,8 @@
 
             nodes.forEach((d, i) => {
                 // slow ambient drift
-                d.vx += Math.sin(time + i) * 0.04;
-                d.vy += Math.cos(time + i) * 0.04;
+                d.vx += Math.sin(time + i) * 0.01;
+                d.vy += Math.cos(time + i) * 0.01;
 
                 // border boundaries
                 if (d.x < padding) d.vx += (padding - d.x) * strength;
