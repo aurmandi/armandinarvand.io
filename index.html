@@ -248,8 +248,8 @@
 
     <script>
         const container = document.getElementById('network-graph');
-        let width = container.clientWidth;
-        let height = container.clientHeight;
+        let width = container.clientWidth || container.getBoundingClientRect().width || 800;
+        let height = container.clientHeight || 300;
 
         // what i spend time thinking about
         const nodes = [
