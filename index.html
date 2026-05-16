@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>arman dinarvand</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -56,6 +57,40 @@
             margin-bottom: 25px;
         }
 
+        /* interactive graph container */
+        #network-graph {
+            width: 100%;
+            height: 300px;
+            margin: 30px 0;
+            border: 1px dashed #333;
+            border-radius: 4px;
+            overflow: hidden;
+            background-color: transparent;
+        }
+
+        /* d3 graph styling */
+        .node circle {
+            fill: #fff;
+            transition: fill 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .node:hover circle {
+            fill: #ffff00; /* matching your highlight-date color */
+        }
+
+        .node text {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 11px;
+            fill: #aaa;
+            pointer-events: none;
+        }
+
+        .link {
+            stroke: #333;
+            stroke-width: 1px;
+        }
+
         .profile-image {
             width: 100%;
             height: auto;
@@ -81,7 +116,7 @@
         }
         
         .highlight-date {
-        color: #ffff00;
+            color: #ffff00;
         }
         
         a {
@@ -92,7 +127,7 @@
 
         a:hover {
             background-color: white;
-            color: #1a1a1a; /* provides contrast on dark background */
+            color: #1a1a1a; 
             text-decoration: none;
         }
 
@@ -125,6 +160,9 @@
                 systems theory. i like to write about music and human beings, 
                 take unprofessional photos, and watch trees.
             </div>
+
+            <!-- the interactive graph lives here -->
+            <div id="network-graph"></div>
 
             <nav>
                 <a href="mailto:your-email@address.com">email</a>
@@ -181,5 +219,114 @@
         last updated: february 2026
     </footer>
 
+    <!-- d3.js graph logic -->
+    <script>
+        // map container dimensions
+        const container = document.getElementById('network-graph');
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+
+        // define interests
+        const nodes = [
+            { id: "comp neuro", radius: 7 },
+            { id: "dynamical systems", radius: 5 },
+            { id: "machine learning", radius: 5 },
+            { id: "spectral analysis", radius: 4 },
+            { id: "biology", radius: 6 },
+            { id: "writing & music", radius: 5 },
+            { id: "photography", radius: 4 },
+            { id: "trees & nature", radius: 5 }
+        ];
+
+        // map connections between concepts
+        const links = [
+            { source: "comp neuro", target: "dynamical systems" },
+            { source: "comp neuro", target: "machine learning" },
+            { source: "comp neuro", target: "spectral analysis" },
+            { source: "biology", target: "comp neuro" },
+            { source: "trees & nature", target: "photography" },
+            { source: "trees & nature", target: "biology" },
+            { source: "writing & music", target: "trees & nature" },
+            { source: "machine learning", target: "spectral analysis" }
+        ];
+
+        const svg = d3.select("#network-graph")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        // create physics engine
+        const simulation = d3.forceSimulation(nodes)
+            .force("link", d3.forceLink(links).id(d => d.id).distance(70))
+            .force("charge", d3.forceManyBody().strength(-120))
+            .force("center", d3.forceCenter(width / 2, height / 2))
+            .force("collide", d3.forceCollide().radius(d => d.radius + 20));
+
+        // render links (lines)
+        const link = svg.append("g")
+            .attr("class", "links")
+            .selectAll("line")
+            .data(links)
+            .enter().append("line")
+            .attr("class", "link");
+
+        // render nodes (groups of circles and text)
+        const node = svg.append("g")
+            .attr("class", "nodes")
+            .selectAll("g")
+            .data(nodes)
+            .enter().append("g")
+            .attr("class", "node")
+            .call(d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended));
+
+        node.append("circle")
+            .attr("r", d => d.radius);
+
+        node.append("text")
+            .attr("dx", 12)
+            .attr("dy", ".35em")
+            .text(d => d.id);
+
+        // update positions on each tick
+        simulation.on("tick", () => {
+            link
+                .attr("x1", d => d.source.x)
+                .attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x)
+                .attr("y2", d => d.target.y);
+
+            node
+                .attr("transform", d => `translate(${Math.max(10, Math.min(width - 10, d.x))},${Math.max(10, Math.min(height - 10, d.y))})`);
+        });
+
+        // drag functions
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+
+        // handle window resize
+        window.addEventListener('resize', () => {
+            const newWidth = container.clientWidth;
+            svg.attr("width", newWidth);
+            simulation.force("center", d3.forceCenter(newWidth / 2, height / 2));
+            simulation.alpha(0.3).restart();
+        });
+    </script>
 </body>
 </html>
