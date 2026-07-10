@@ -125,14 +125,14 @@
 
         .project-figures img {
             width: 100%;
-            max-width: 400px;   /* scales down cleanly to sit horizontally */
+            max-width: 400px;
             height: auto;
             border: 1px solid #2a2a2a;
             border-radius: 2px;
         }
         
         .highlight-date {
-            color: #64b5f6;
+            color: #b6ccfe;
         }
         
         a {
@@ -196,16 +196,36 @@
                     
                     <div class="item">
                         2022 — 2026 <br>
-                        bachelor of science @ kharazmi university
+                        bachelor of science in bio @ kharazmi university
                     </div>
-                    <a href="CV.pdf" target="_blank">full cv [pdf]</a>
+                    <a href="CV.pdf" target="_blank">full cv</a>
                 </div>
 
                 <div class="research-section">
                     <span class="section-header">research projects</span>
                     
+                    <div class="item">
+                        <span style="color:#ffcad4;">neurocomplexity package for complex systems analysis of neural populations</span>
+                        <div class="project-desc">
+                        systems neuroscience lacks a unified toolbox for criticality, information flow, and dimensionality.
+                        built <strong>neurocomplexity</strong>, a python package that integrates seven estimator families (branching ratio, avalanche exponents, transfer entropy, pid, granger autonomy, participation ratio)
+                        on an immutable spike‑train data model with block‑bootstrap inference and surrogate tests. also validated against ground‑truth simulations; on neuropixels data, a scale‑free signature is recovered:
+                        avalanche exponents α<sub>s</sub>=1.56±0.02, α<sub>t</sub>=1.71±0.02, branching ratio invariant to unit count, and collapse under sub‑sampling.
+                        the same exponents recur on allen spontaneous data.
+                        the package ships with a frozen benchmark suite and content‑addressed provenance. <span class="highlight-date">2026 - present</span>
+                        <br>
+                        <a href="https://github.com/aurmandi/neurocomplexity">view project</a>
+                        
+                        <div class="project-figures">
+                            <img src="te_network.png" alt="transfer_entropy_net">
+                            <img src="te_significance_matrix.png" alt="significance_network">
+                            <img src="branching.png" alt="br">
+                            <img src="criticality.png" alt="crit.">
+                        </div>
+                    </div>
+                    
                  <div class="item">
-                    <span style="color:#b6ccfe;">alzheimer trajectory atypicality</span>
+                    <span style="color:#ffcad4;">alzheimer trajectory atypicality</span>
                     <div class="project-desc">
                         two people with the same atrophy can decline differently.
                         we built a spatio-temporal graph attention network (st-gat) that reads three longitudinal mri visits from executive-control and salience regions.
@@ -251,7 +271,7 @@
                     </div>
 
                     <div class="item">
-                        <span style="color:#ccd5ae;">screening and classification of anti-angiogenic vegfr2 inhibitors with supervised machine learning, deep learning, molecular docking, and molecular dynamics simulation.</span>
+                        <span style="color:#ffcad4;">screening and classification of anti-angiogenic vegfr2 inhibitors with supervised machine learning, deep learning, molecular docking, and molecular dynamics simulation.</span>
                         <div class="project-desc">
                         this project aims to address the efficiency limits, resistance, and toxicity challenges of conventional drug discovery by utilizing scalable virtual screening to identify novel inhibitors of vascular endothelial growth factor receptor 2 (vegfr2). we developed and evaluated four machine learning classifiers (rf, svm, knn, xgboost) and two deep learning networks (1d-cnn, mlp); high-probability active candidates were evaluated for admet profiles and drug-likeness filters using swissadme, docked into the vegfr2 atp-binding pocket via pyrx, and validated using detailed 400 ns molecular dynamics simulations in gromacs to analyze local structural and thermodynamic stability. The entire trained workflow was integrated into an open-source graphical software platform named vegfr2pred and published on github. <span class="highlight-date">2024 - 2025</span>
                         <br>
