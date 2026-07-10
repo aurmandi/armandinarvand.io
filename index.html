@@ -204,12 +204,22 @@
                 <div class="research-section">
                     <span class="section-header">research projects</span>
                     
-                    <div class="item">
-                    <span style="color:#ffff00;">alzheimer trajectory atypicality · 2026–present</span>
+                 <div class="item">
+                    <span style="color:#ffff00;">alzheimer trajectory atypicality</span>
                     <div class="project-desc">
-                        two people with the same atrophy can decline differently. we built a spatio-temporal graph attention network (st-gat) that reads three longitudinal mri visits from executive-control and salience regions. it produces a 64‑d trajectory embedding; from that we derive an “off‑manifold residual” — a geometric measure of how unusual a subject’s disease course is. the residual is largest in alzheimer’s (h=20.8, p<0.001), independent of atrophy, age, sex, or apoe, and predicts 24‑month mmse decline even when the model is trained only on baseline+month‑12 images (partial ρ=−0.14, p=0.018). the signal maps to salience‑network edges (anterior insula, vlpfc, dorsal acc) and loads on trajectory curvature — a multi‑visit feature. a diffusion pseudo‑time coordinate turns out to be a graph artifact, which we flag as a caution. the residual is a candidate prognostic marker.
+                        two people with the same atrophy can decline differently.
+                        we built a spatio-temporal graph attention network (st-gat) that reads three longitudinal mri visits from executive-control and salience regions.
+                        it produces a 64‑d trajectory embedding; from that we derive an “off‑manifold residual” a geometric measure of how unusual a subject’s disease course is.
+                        the residual is largest in alzheimer’s (h=20.8, p<0.001), independent of atrophy, age, sex, or apoe, and predicts 24‑month mmse decline even when the model is trained only on baseline+month‑12 images
+                            (partial ρ=−0.14, p=0.018). the signal maps to salience‑network edges (anterior insula, vlpfc, dorsal acc) and loads on trajectory curvature. a diffusion pseudo‑time coordinate turns out to be a graph artifact,
+                            which we flag as a caution. the residual is a candidate prognostic marker.<span class="highlight-date"> 2025 - 2026</span>
+
+                     <div class="project-figures">
+                            <img src="Fig4_offmanifold.png" alt="off-manifold_residual">
+                            <img src="Fig1_architecture.png" alt="architecture">
+                        </div>
                     </div>
-                </div>
+                
 
                     <div class="item">
                         exploration of cortical microcircuits and inhibitory stabilized networks (isn). 
