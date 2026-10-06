@@ -153,6 +153,10 @@
             opacity: 0.6;
         }
 
+        .post { margin-bottom: 30px; font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 20px; }
+        .post-date { color: #b6ccfe; display: block; margin-bottom: 6px; }
+        .post-body img { max-width: 100%; height: auto; display: block; margin: 10px 0; }
+
         @media (max-width: 768px) {
             .top-container {
                 flex-direction: column;
@@ -294,6 +298,9 @@
             <div class="image-text-area">
                 that's me holding a profiterole. photo is taken in 2024 by parya
             </div>
+
+            <span class="section-header">blog posts</span>
+            <div id="posts"></div>
         </div>
     </div>
 
@@ -470,6 +477,19 @@
             svg.attr("width", width);
             simulation.force("center", d3.forceCenter(width / 2, height / 2));
             simulation.alpha(0.3).restart();
+        });
+    </script>
+    <script>
+        // posts.json is written by write.html; date is stamped at publish time
+        fetch('posts.json?t=' + Date.now()).then(r => r.json()).then(posts => {
+            const el = document.getElementById('posts');
+            posts.sort((a, b) => b.date.localeCompare(a.date)).forEach(p => {
+                const d = new Date(p.date);
+                const stamp = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                    + ' · ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+                el.insertAdjacentHTML('beforeend',
+                    `<div class="post"><span class="post-date">${stamp}</span><div class="post-body">${p.html}</div></div>`);
+            });
         });
     </script>
 </body>

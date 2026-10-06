@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>write post</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <style>
+        body { background: #72825A; color: white; font-family: 'Roboto Mono', monospace; font-size: 14px; padding: 40px; max-width: 700px; margin: auto; }
+        #editor { min-height: 250px; border: 1px dashed white; padding: 12px; margin: 15px 0; outline: none; }
+        #editor img { max-width: 100%; display: block; margin: 10px 0; }
+        input, button { font-family: inherit; font-size: 14px; padding: 6px 10px; }
+        input[type=password] { width: 100%; }
+        #status { margin-top: 10px; color: #b6ccfe; }
+    </style>
+</head>
+<body>
+    <h1>new blog post</h1>
+    <label>github token (saved in this browser only)<br><input type="password" id="token"></label>
+    <div id="editor" contenteditable="true"></div>
+    <input type="file" id="file" accept="image/*" multiple>
+    <button id="publish">publish</button>
+    <div id="status"></div>
+
+    <script>
+        const REPO = 'aurmandi/armandinarvand.io', PATH = 'posts.json';
+        const api = `https://api.github.com/repos/${REPO}/contents/${PATH}`;
+        const editor = document.getElementById('editor'), status = document.getElementById('status');
+        const tokenInput = document.getElementById('token');
+        try { tokenInput.value = localStorage.getItem('gh-token') || ''; } catch (e) {}
+
+        // ponytail: images inlined as downscaled jpeg data urls in posts.json; move to separate files if posts.json passes a few MB
+        function addImage(file) {
+            const img = new Image();
+            img.onload = () => {
+                const scale = Math.min(1, 1200 / img.width);
+                const c = document.createElement('canvas');
+                c.width = img.width * scale; c.height = img.height * scale;
+                c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+                editor.focus();
+                document.execCommand('insertHTML', false, `<img src="${c.toDataURL('image/jpeg', 0.8)}">`);
+                URL.revokeObjectURL(img.src);
+            };
+            img.src = URL.createObjectURL(file);
+        }
+
+        editor.addEventListener('paste', e => {
+            const files = [...e.clipboardData.files].filter(f => f.type.startsWith('image/'));
+            if (files.length) { e.preventDefault(); files.forEach(addImage); }
+        });
+        document.getElementById('file').onchange = e => [...e.target.files].forEach(addImage);
+
+        function toBase64(str) {
+            const bytes = new TextEncoder().encode(str);
+            let bin = '';
+            for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+            return btoa(bin);
+        }
+
+        document.getElementById('publish').onclick = async () => {
+            const token = tokenInput.value.trim();
+            if (!token || !editor.innerHTML.trim()) { status.textContent = 'need token and text'; return; }
+            try { localStorage.setItem('gh-token', token); } catch (e) {}
+            const headers = { Authorization: `Bearer ${token}` };
+            status.textContent = 'publishing...';
+            try {
+                const meta = await fetch(api, { headers, cache: 'no-store' }).then(r => r.ok ? r.json() : Promise.reject(r.status));
+                const posts = await fetch(api, { headers: { ...headers, Accept: 'application/vnd.github.raw' }, cache: 'no-store' }).then(r => r.json());
+                posts.push({ date: new Date().toISOString(), html: editor.innerHTML });
+                const res = await fetch(api, {
+                    method: 'PUT', headers,
+                    body: JSON.stringify({ message: 'New blog post', content: toBase64(JSON.stringify(posts, null, 1)), sha: meta.sha })
+                });
+                if (!res.ok) throw res.status;
+                editor.innerHTML = '';
+                status.textContent = 'published! live on the site in ~1 minute.';
+            } catch (err) {
+                status.textContent = 'failed: ' + err;
+            }
+        };
+    </script>
+</body>
+</html>
