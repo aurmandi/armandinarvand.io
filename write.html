@@ -12,6 +12,8 @@
         #editor img { max-width: 100%; display: block; margin: 10px 0; }
         input, button { font-family: inherit; font-size: 14px; padding: 6px 10px; }
         input[type=password] { width: 100%; }
+        .row { margin: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 8px; }
+        .row button { margin-left: 8px; }
         #status { margin-top: 10px; color: #b6ccfe; }
     </style>
 </head>
@@ -22,6 +24,10 @@
     <input type="file" id="file" accept="image/*" multiple>
     <button id="publish">publish</button>
     <div id="status"></div>
+
+    <h1 style="margin-top:50px">my posts</h1>
+    <button id="load">load posts</button>
+    <div id="list"></div>
 
     <script>
         const REPO = 'aurmandi/armandinarvand.io', PATH = 'posts.json';
@@ -58,27 +64,58 @@
             return btoa(bin);
         }
 
-        document.getElementById('publish').onclick = async () => {
+        // read posts.json, apply change(posts), commit back; returns the new list
+        async function update(change, message) {
             const token = tokenInput.value.trim();
-            if (!token || !editor.innerHTML.trim()) { status.textContent = 'need token and text'; return; }
+            if (!token) throw 'need token';
             try { localStorage.setItem('gh-token', token); } catch (e) {}
             const headers = { Authorization: `Bearer ${token}` };
-            status.textContent = 'publishing...';
-            try {
-                const meta = await fetch(api, { headers, cache: 'no-store' }).then(r => r.ok ? r.json() : Promise.reject(r.status));
-                const posts = await fetch(api, { headers: { ...headers, Accept: 'application/vnd.github.raw' }, cache: 'no-store' }).then(r => r.json());
-                posts.push({ date: new Date().toISOString(), html: editor.innerHTML });
+            const meta = await fetch(api, { headers, cache: 'no-store' }).then(r => r.ok ? r.json() : Promise.reject(r.status));
+            let posts = await fetch(api, { headers: { ...headers, Accept: 'application/vnd.github.raw' }, cache: 'no-store' }).then(r => r.json());
+            posts = change(posts);
+            if (message) {
                 const res = await fetch(api, {
                     method: 'PUT', headers,
-                    body: JSON.stringify({ message: 'New blog post', content: toBase64(JSON.stringify(posts, null, 1)), sha: meta.sha })
+                    body: JSON.stringify({ message, content: toBase64(JSON.stringify(posts, null, 1)), sha: meta.sha })
                 });
                 if (!res.ok) throw res.status;
-                editor.innerHTML = '';
-                status.textContent = 'published! live on the site in ~1 minute.';
-            } catch (err) {
-                status.textContent = 'failed: ' + err;
             }
-        };
+            return posts;
+        }
+
+        function render(posts) {
+            const list = document.getElementById('list');
+            list.innerHTML = '';
+            posts.slice().sort((a, b) => b.date.localeCompare(a.date)).forEach(p => {
+                const row = document.createElement('div');
+                row.className = 'row';
+                const text = document.createElement('div');
+                text.innerHTML = p.html;
+                row.textContent = new Date(p.date).toLocaleString('en-GB') + ' — ' + (text.textContent.slice(0, 60) || '[image]') + ' ';
+                const del = document.createElement('button');
+                del.textContent = 'delete';
+                del.onclick = () => run('deleting...', 'deleted.', () => {
+                    if (!confirm('delete this post?')) throw 'cancelled';
+                    return update(ps => ps.filter(x => x.date !== p.date), 'Delete blog post');
+                });
+                row.appendChild(del);
+                list.appendChild(row);
+            });
+        }
+
+        async function run(busy, done, fn) {
+            status.textContent = busy;
+            try { render(await fn()); status.textContent = done; }
+            catch (err) { status.textContent = 'failed: ' + err; }
+        }
+
+        document.getElementById('publish').onclick = () => run('publishing...', 'published! live on the site in ~1 minute.', async () => {
+            if (!editor.innerHTML.trim()) throw 'need text';
+            const posts = await update(ps => [...ps, { date: new Date().toISOString(), html: editor.innerHTML }], 'New blog post');
+            editor.innerHTML = '';
+            return posts;
+        });
+        document.getElementById('load').onclick = () => run('loading...', '', () => update(ps => ps));
     </script>
 </body>
 </html>

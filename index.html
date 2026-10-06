@@ -39,11 +39,15 @@
         }
 
         .sidebar-right {
-            width: 17vw;
+            width: 28vw;
             display: flex;
             flex-direction: column;
         }
 
+        .sidebar-right .profile-image,
+        .sidebar-right .image-text-area {
+            max-width: 17vw;
+        }
         h1 {
             font-size: 1.2rem;
             font-weight: normal;
@@ -161,7 +165,8 @@
             .top-container {
                 flex-direction: column;
             }
-            .info-left, .sidebar-right {
+            .info-left, .sidebar-right,
+            .sidebar-right .profile-image, .sidebar-right .image-text-area {
                 max-width: 100%;
                 width: 100%;
             }
